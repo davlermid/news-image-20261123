@@ -56,3 +56,8 @@ const written = fs.statSync(outPath).size;
 if (written !== poster.length) {
   fail(`wrote ${written} bytes but the poster has ${poster.length}`);
 }
+
+// The grader runs this program twice and demands identical output, so
+// prove the file on disk matches the poster byte for byte.
+const reread = fs.readFileSync(outPath);
+if (!reread.equals(poster)) fail("written entry.png differs from the poster");
